@@ -26,9 +26,17 @@
   </div>
 
 <script>
-  const addItems = document.querySelector('.add-items');
-  const itemsList = document.querySelector('.plates');
-  const items = [];
+
+const addItems = document.querySelector('.add-items');
+const itemsList = document.querySelector('.plates');
+const items = [];
+
+function addItem(e){
+    e.preventDefault(); // this prevents page from auto-refreshing when submit is hit
+    console.log('hello');
+}
+
+addItems.addEventListener('submit',addItem)
 
 </script>
 
