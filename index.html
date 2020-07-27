@@ -54,17 +54,12 @@ function addItem(e){
 
 function populateList(plates = [], platesList){
     platesList.innerHTML = plates.map((plate, i) => {
-      if(plates !== []){
-        return `
+    return `
         <li>
         <input type="checkbox" data-index=${i} id = "item${i}" ${plate.done ? 'checked' : ''}/>
         <label for = "item${i}">${plate.text}</label>
         </li>
-        `}
-      else 
-        return `
-        <li>Loading Tapas...
-        </li>`
+        `
     }).join(''); //Map returns an array so we need to turn it back into a whole string
 
 }
@@ -92,7 +87,9 @@ const clearButton = document.querySelector('.clear-items');
 
 function clearAll(){
   items = [];
+  item ='';
   itemsList.innerHTML = "<li>Loading Tapas...</li>"
+  localStorage.setItem('items', JSON.stringify(items));
 }
 
 clearButton.addEventListener('click',clearAll)
