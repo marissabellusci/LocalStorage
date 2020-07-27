@@ -103,14 +103,14 @@ function clearAll(){
   item ='';
   localStorage.setItem('items', JSON.stringify(items));
   itemsList.innerHTML = "<li>Loading Tapas...</li>"
-  console.table(items);
+  console.log('cleared item(s)');
   
 }
 //WHY IS CHECKALL AND UNCHECK ALL FIRING BEFORE I CALL IT
 function checkAll(){
   items.map((item) => {
     item.done = true;
-    console.log('checked');
+    console.log('checked item(s)');
 
   })
 
@@ -126,7 +126,7 @@ else {
 function uncheckAll(){
   items.map((item) => {
     item.done = false;
-    console.log('unchecked');
+    console.log('unchecked item(s)');
     
 
   })
