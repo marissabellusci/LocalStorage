@@ -110,6 +110,7 @@ function clearAll(){
 function checkAll(){
   items.map((item) => {
     item.done = true;
+    localStorage.setItem('items', JSON.stringify(items));
     console.log('checked item(s)');
 
   })
@@ -126,6 +127,7 @@ else {
 function uncheckAll(){
   items.map((item) => {
     item.done = false;
+    localStorage.setItem('items', JSON.stringify(items));
     console.log('unchecked item(s)');
     
 
