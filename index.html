@@ -23,6 +23,9 @@
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
     </form>
+   <!-- <button class="check-all">Check All</button>
+    <button class="uncheck-all">Uncheck All</button>
+    <button class="clear-items">Clear Items</button> -->
   </div>
 
 <script>
@@ -30,6 +33,10 @@
 const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
 const items = JSON.parse(localStorage.getItem('items')) || [];
+
+const checkButton = document.querySelector('.check-all');
+const uncheckButton = document.querySelector('.uncheck-all');
+const clearButton = document.querySelector('.clear-items');
 
 function addItem(e){
     e.preventDefault(); // this prevents page from auto-refreshing when submit is hit
@@ -41,8 +48,8 @@ function addItem(e){
 
     
     items.push(item);
-    populateList(items, itemsList)
-    localStorage.setItem('items', JSON.stringify(items))
+    populateList(items, itemsList);
+    localStorage.setItem('items', JSON.stringify(items));
     this.reset(); // makes input field in form blank again
     console.table(items);
 
@@ -60,9 +67,22 @@ function populateList(plates = [], platesList){
 
 }
 
+function toggleDone(e){
+    if (!e.target.matches('input')) return // skip this unless it's an input
+    const element = e.target;
+    const index = element.dataset.index;
+    items[index].done = !items[index].done; // sets it to the opposite of current state
+    localStorage.setItem('items', JSON.stringify(items));
+}
+
+
 addItems.addEventListener('submit', addItem)
 
+itemsList.addEventListener('click', toggleDone)
+
 populateList(items, itemsList);
+
+
 
 </script>
 
