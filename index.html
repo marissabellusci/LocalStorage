@@ -24,19 +24,16 @@
       <input type="submit" value="+ Add Item">
     </form>
    <!-- <button class="check-all">Check All</button>
-    <button class="uncheck-all">Uncheck All</button>
-    <button class="clear-items">Clear Items</button> -->
+    <button class="uncheck-all">Uncheck All</button> -->
+    <button class="clear-items">Clear Items</button> 
   </div>
 
 <script>
 
 const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
-const items = JSON.parse(localStorage.getItem('items')) || [];
+let items = JSON.parse(localStorage.getItem('items')) || [];
 
-const checkButton = document.querySelector('.check-all');
-const uncheckButton = document.querySelector('.uncheck-all');
-const clearButton = document.querySelector('.clear-items');
 
 function addItem(e){
     e.preventDefault(); // this prevents page from auto-refreshing when submit is hit
@@ -57,12 +54,17 @@ function addItem(e){
 
 function populateList(plates = [], platesList){
     platesList.innerHTML = plates.map((plate, i) => {
+      if(plates !== []){
         return `
         <li>
         <input type="checkbox" data-index=${i} id = "item${i}" ${plate.done ? 'checked' : ''}/>
         <label for = "item${i}">${plate.text}</label>
         </li>
-        `
+        `}
+      else 
+        return `
+        <li>Loading Tapas...
+        </li>`
     }).join(''); //Map returns an array so we need to turn it back into a whole string
 
 }
@@ -82,7 +84,18 @@ itemsList.addEventListener('click', toggleDone)
 
 populateList(items, itemsList);
 
+// Code below is for the three bottom buttons 
 
+const checkButton = document.querySelector('.check-all');
+const uncheckButton = document.querySelector('.uncheck-all');
+const clearButton = document.querySelector('.clear-items');
+
+function clearAll(){
+  items = [];
+  itemsList.innerHTML = "<li>Loading Tapas...</li>"
+}
+
+clearButton.addEventListener('click',clearAll)
 
 </script>
 
