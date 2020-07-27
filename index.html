@@ -37,12 +37,13 @@ const itemsList = document.querySelector('.plates');
 let items = JSON.parse(localStorage.getItem('items')) || [];
 
 
+
 function addItem(e){
     e.preventDefault(); // this prevents page from auto-refreshing when submit is hit
     const text = (this.querySelector('[name = item]')).value;
     const item = {
         text: text,
-        done: false
+        done: false,
     };
 
     
@@ -56,12 +57,14 @@ function addItem(e){
 
 function populateList(plates = [], platesList){
     platesList.innerHTML = plates.map((plate, i) => {
+      if(plate.text) {
     return `
         <li>
         <input type="checkbox" data-index=${i} id = "item${i}" ${plate.done ? 'checked' : ''}/>
         <label for = "item${i}">${plate.text}</label>
         </li>
-        `
+        `}
+      else return 'loading tapas'
     }).join(''); //Map returns an array so we need to turn it back into a whole string
 
 }
@@ -79,7 +82,15 @@ addItems.addEventListener('submit', addItem)
 
 itemsList.addEventListener('click', toggleDone)
 
-populateList(items, itemsList);
+if (items == false){
+  itemsList.innerHTML = "<li>Loading Tapas...</li>"
+}
+
+else {
+  populateList(items, itemsList);
+}
+
+
 
 // Code below is for the three bottom buttons 
 
@@ -90,11 +101,52 @@ const clearButton = document.querySelector('.clear-items');
 function clearAll(){
   items = [];
   item ='';
-  itemsList.innerHTML = "<li>Loading Tapas...</li>"
   localStorage.setItem('items', JSON.stringify(items));
+  itemsList.innerHTML = "<li>Loading Tapas...</li>"
+  console.table(items);
+  
+}
+//WHY IS CHECKALL AND UNCHECK ALL FIRING BEFORE I CALL IT
+function checkAll(plates){
+  plates.map((plate) => {
+    plate.done = true;
+    plate.checked = true;
+    
+
+  })
+
+  if (items == false){
+  itemsList.innerHTML = "<li>Loading Tapas...</li>"
 }
 
-clearButton.addEventListener('click',clearAll)
+else {
+  
+  populateList(items, itemsList);
+}  
+  
+  
+    
+}
+
+function uncheckAll(plates){
+  plates.map((plate) => {
+    plate.done = false;
+    plate.checked = false;
+  })
+  
+  //console.table(plates);
+  // populateList(items, itemsList);
+    
+}
+  
+
+
+
+clearButton.addEventListener('click',clearAll);
+
+checkButton.addEventListener('click',checkAll(items));
+
+uncheckButton.addEventListener('click',uncheckAll(items));
 
 </script>
 
