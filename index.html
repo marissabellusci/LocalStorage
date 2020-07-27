@@ -107,10 +107,26 @@ function clearAll(){
   
 }
 //WHY IS CHECKALL AND UNCHECK ALL FIRING BEFORE I CALL IT
-function checkAll(plates){
-  plates.map((plate) => {
-    plate.done = true;
-    plate.checked = true;
+function checkAll(){
+  items.map((item) => {
+    item.done = true;
+    console.log('checked');
+
+  })
+
+  if (items == false){
+  itemsList.innerHTML = "<li>Loading Tapas...</li>"
+}
+
+else {
+  populateList(items, itemsList);
+}    
+}
+
+function uncheckAll(){
+  items.map((item) => {
+    item.done = false;
+    console.log('unchecked');
     
 
   })
@@ -120,33 +136,17 @@ function checkAll(plates){
 }
 
 else {
-  
   populateList(items, itemsList);
 }  
-  
-  
-    
-}
-
-function uncheckAll(plates){
-  plates.map((plate) => {
-    plate.done = false;
-    plate.checked = false;
-  })
-  
-  //console.table(plates);
-  // populateList(items, itemsList);
-    
-}
-  
+} 
 
 
 
 clearButton.addEventListener('click',clearAll);
 
-checkButton.addEventListener('click',checkAll(items));
+checkButton.addEventListener('click',checkAll);
 
-uncheckButton.addEventListener('click',uncheckAll(items));
+uncheckButton.addEventListener('click',uncheckAll);
 
 </script>
 
